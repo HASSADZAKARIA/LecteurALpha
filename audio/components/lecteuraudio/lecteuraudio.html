@@ -1,0 +1,24 @@
+<div class="audio-player-container">
+    <h1>Lecteur Audio Custom</h1>
+    <audio id="player" src="" crossorigin="anonymous"></audio>
+
+    <div class="controls">
+        <button id="play"><img id="play-icon" src="" alt="Play"></button>
+        <button id="pause" disabled><img id="pause-icon" src="" alt="Pause"></button>
+        <button id="stop" disabled><img id="stop-icon" src="" alt="Stop"></button>
+        <button id="mute"><img id="mute-icon" src="" alt="Mute"></button>
+        <button id="speed-up"><img id="speedup-icon" src="" alt="Speed Up"></button>
+        <button id="slow-down"><img id="slowdown-icon" src="" alt="Slow Down"></button>
+    </div>
+
+    <div class="sliders">
+        <label for="volume">Volume</label>
+        <input type="range" id="volume" min="0" max="2" step="0.01" value="1">
+
+        <label for="stereo">Stéréo</label>
+        <input type="range" id="stereo" min="-1" max="1" step="0.01" value="0">
+
+        <progress id="progress" value="0" max="100"></progress>
+    </div>
+</div>
+<!-- <canvas id="visualizer"></canvas> -->
