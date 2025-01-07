@@ -3,19 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecteur Audio Custom</title>
+    <title>Lecteur Audio & Visualiseur</title>
     <script type="module" src="components/lecteuraudio/lecteuraudio.js"></script>
+    <script type="module" src="components/visaliseur/Visaliseur.js"></script>
     <link rel="stylesheet" href="components/lecteuraudio/lecteuraudio.css">
     <link rel="stylesheet" href="components/visaliseur/Visaliseur.css">
-    <!-- Importation des bibliothèques externes -->
-    <script
-        type="text/javascript"
-        src="https://unpkg.com/butterchurn"
-    ></script>
-    <script
-        type="text/javascript"
-        src="https://unpkg.com/butterchurn-presets"
-    ></script>
+    <script src="https://unpkg.com/butterchurn"></script>
+    <script src="https://unpkg.com/butterchurn-presets"></script>
     <style>
         body, html {
             margin: 0;
@@ -38,14 +32,14 @@
     <canvas id="visualizer"></canvas>
     <div class="component-container">
         <my-audio-player 
+            id="main-audio"
             src="https://wasabi.i3s.unice.fr/WebAudioPluginBank/BasketCaseGreendayriffDI.mp3"
         ></my-audio-player>
     </div>
     <div class="component-container">
         <butterchurn-visualizer
-            audio-src="https://wasabi.i3s.unice.fr/WebAudioPluginBank/BasketCaseGreendayriffDI.mp3"
+            audio-id="main-audio"
         ></butterchurn-visualizer>
     </div>
-    <script src="components/visaliseur/Visaliseur.js"></script>
 </body>
 </html>

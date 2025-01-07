@@ -1,59 +1,49 @@
 class ButterchurnVisualizer extends HTMLElement {
     constructor() {
         super();
-
-        // Crée le Shadow DOM
         const shadow = this.attachShadow({ mode: 'open' });
 
-        // Création des éléments internes
+        // Create internal elements
         this.canvas = document.createElement('canvas');
         this.canvas.id = 'butterchurn-canvas';
 
         this.presetDropdown = document.createElement('select');
         this.presetDropdown.id = 'preset-dropdown';
 
-        this.audio = document.createElement('audio');
-        this.audio.controls = true;
-        this.audio.crossOrigin = 'anonymous';
-        this.audio.src = this.getAttribute('audio-src');
-
-        // Ajout des styles internes via un lien
         const styleLink = document.createElement('link');
         styleLink.rel = 'stylesheet';
         styleLink.href = 'Visaliseur.css';
 
-        // Ajout au Shadow DOM
         shadow.appendChild(styleLink);
         shadow.appendChild(this.canvas);
         shadow.appendChild(this.presetDropdown);
-        shadow.appendChild(this.audio);
 
-        // Variables internes
         this.visualizer = null;
         this.presets = null;
     }
 
     connectedCallback() {
-        this.initVisualizer();
+        // Écoute l'événement personnalisé pour obtenir l'élément audio
+        window.addEventListener('audio-ready', (event) => {
+            this.initVisualizer(event.detail.audioElement);
+        });
+
         this.populatePresets();
         this.handleResize();
     }
 
-    initVisualizer() {
+    initVisualizer(audioElement) {
         const audioContext = new AudioContext();
-
-        // Initialise Butterchurn Visualizer
         this.visualizer = butterchurn.default.createVisualizer(audioContext, this.canvas, {
             width: this.canvas.clientWidth,
             height: this.canvas.clientHeight,
         });
 
-        // Connecte l'audio
-        const source = audioContext.createMediaElementSource(this.audio);
+        const source = audioContext.createMediaElementSource(audioElement);
         source.connect(audioContext.destination);
         this.visualizer.connectAudio(source);
 
-        this.audio.addEventListener('play', () => audioContext.resume());
+        audioElement.addEventListener('play', () => audioContext.resume());
         this.startRendering();
     }
 
@@ -98,12 +88,17 @@ class ButterchurnVisualizer extends HTMLElement {
     
         // Charge un preset par défaut
         const defaultPreset = Object.keys(this.presets)[0];
-        this.visualizer.loadPreset(this.presets[defaultPreset], 0.0);
+        if (this.visualizer) {
+            this.visualizer.loadPreset(this.presets[defaultPreset], 0.0);
+        }
     
         // Change de preset à la sélection
         this.presetDropdown.addEventListener('change', (event) => {
             const selectedPreset = event.target.value;
-            this.visualizer.loadPreset(this.presets[selectedPreset], 0.0);
+            console.log(`Changing preset to: ${selectedPreset}`);
+            if (this.visualizer) {
+                this.visualizer.loadPreset(this.presets[selectedPreset], 0.0);
+            }
         });
     }
 }

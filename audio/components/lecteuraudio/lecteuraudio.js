@@ -19,7 +19,15 @@ export class MyAudioPlayer extends HTMLElement {
         // Set the src for the audio file
         this.src = this.getAttribute('src');
         this.audioContext = new AudioContext();
-        this.shadowRoot.querySelector('#player').src = this.src;
+        const player = this.shadowRoot.querySelector('#player');
+        player.src = this.src;
+
+        // Dispatch custom event with the audio element
+        this.dispatchEvent(new CustomEvent('audio-ready', {
+            detail: { audioElement: player },
+            bubbles: true,
+            composed: true
+        }));
 
         // Load icons using base URL
         this.shadowRoot.querySelector('#play-icon').src = baseUrl + 'icons/play.svg';
@@ -41,10 +49,13 @@ export class MyAudioPlayer extends HTMLElement {
 
     buildAudioGraph() {
         const player = this.shadowRoot.querySelector('#player');
-        const source = this.audioContext.createMediaElementSource(player);
-        this.stereoPanner = this.audioContext.createStereoPanner();
-        source.connect(this.stereoPanner);
-        this.stereoPanner.connect(this.audioContext.destination);
+        if (!player._source) {
+            const source = this.audioContext.createMediaElementSource(player);
+            this.stereoPanner = this.audioContext.createStereoPanner();
+            source.connect(this.stereoPanner);
+            this.stereoPanner.connect(this.audioContext.destination);
+            player._source = source;
+        }
     }
 
     defineListeners(baseUrl) {
@@ -100,7 +111,9 @@ export class MyAudioPlayer extends HTMLElement {
 
         player.addEventListener('timeupdate', () => {
             const progress = this.shadowRoot.querySelector('#progress');
-            progress.value = (player.currentTime / player.duration) * 100;
+            if (player.duration) {
+                progress.value = (player.currentTime / player.duration) * 100;
+            }
         });
 
         this.shadowRoot.querySelector('#progress').addEventListener('click', (event) => {
