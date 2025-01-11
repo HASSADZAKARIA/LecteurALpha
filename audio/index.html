@@ -6,6 +6,7 @@
     <title>Lecteur Audio & Visualiseur</title>
     <script type="module" src="components/lecteuraudio/lecteuraudio.js"></script>
     <script type="module" src="components/visaliseur/Visaliseur.js"></script>
+    <script type="module" src="components/playlist-component/playlist.js"></script>
     <link rel="stylesheet" href="components/lecteuraudio/lecteuraudio.css">
     <link rel="stylesheet" href="components/visaliseur/Visaliseur.css">
     <script src="https://unpkg.com/butterchurn"></script>
@@ -16,7 +17,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            background-color:black;
         }
         #visualizer {
             position: absolute;
@@ -36,6 +37,10 @@
             src="https://wasabi.i3s.unice.fr/WebAudioPluginBank/BasketCaseGreendayriffDI.mp3"
         ></my-audio-player>
     </div>
+    <div class="component-container">
+        <playlist-bar></playlist-bar>
+    </div>
+    
     <div class="component-container">
         <butterchurn-visualizer
             audio-id="main-audio"
