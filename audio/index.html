@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,4 +42,88 @@
         ></butterchurn-visualizer>
     </div>
 </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecteur Audio & Visualiseur</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="components/lecteuraudio/lecteuraudio.css">
+    <link rel="stylesheet" href="components/visaliseur/Visaliseur.css">
+    <link rel="stylesheet" href="components/egaliseur/egaliseur.css">
+
+    <!-- Scripts -->
+    <script type="module" src="components/lecteuraudio/lecteuraudio.js"></script>
+    <script type="module" src="components/visaliseur/Visaliseur.js"></script>
+    <script type="module" src="components/egaliseur/egaliseur.js"></script>
+
+    <script src="https://unpkg.com/butterchurn"></script>
+    <script src="https://unpkg.com/butterchurn-presets"></script>
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow-y: auto; /* Allow vertical scrolling */
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+
+        #visualizer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .component-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 20px auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background visualizer -->
+    <canvas id="visualizer"></canvas>
+
+    <!-- Audio Player Component -->
+    <div class="component-container">
+        <my-audio-player 
+            id="main-audio"
+            src="https://wasabi.i3s.unice.fr/WebAudioPluginBank/BasketCaseGreendayriffDI.mp3"
+        ></my-audio-player>
+    </div>
+
+    <!-- Audio Equalizer Component -->
+    <div class="component-container">
+        <audio-egaliseur id="audio-egaliseur"></audio-egaliseur>
+    </div>
+
+    <!-- Visualizer Component -->
+    <div class="component-container">
+        <butterchurn-visualizer audio-id="main-audio"></butterchurn-visualizer>
+    </div>
+
+    <script>
+        // Connect the audio player to the equalizer
+        const audioPlayer = document.querySelector('my-audio-player');
+        const egaliseur = document.querySelector('audio-egaliseur');
+
+        audioPlayer.addEventListener('audio-ready', (event) => {
+            egaliseur.connect(event.detail.audioElement);
+        });
+    </script>
+</body>
 </html>
+

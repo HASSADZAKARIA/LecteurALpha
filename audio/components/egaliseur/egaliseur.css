@@ -1,0 +1,55 @@
+.egaliseur-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background-color: #d2b48c;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    border: 5px solid #8b4513;
+    font-family: 'Courier New', Courier, monospace;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.band {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+label {
+    font-size: 16px;
+    color: #4b2e83;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px;
+    height: 100px;
+    background: #8b4513;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    transform: rotate(-90deg); /* Rotate the slider to make it vertical */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4b2e83;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4b2e83;
+    cursor: pointer;
+    border-radius: 50%;
+}
