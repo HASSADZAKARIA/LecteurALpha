@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecteur Audio & Visualiseur</title>
-    <script type="module" src="components/lecteuraudio/lecteuraudio.js"></script>
-    <script type="module" src="components/Visaliseur/Visaliseur.js"></script>
-    <script type="module" src="components/playlist-component/playlist.js"></script>
-    <link rel="stylesheet" href="components/lecteuraudio/lecteuraudio.css">
-    <link rel="stylesheet" href="components/Visaliseur/Visaliseur.css">
+    <script type="module" src="https://hassadzakaria.github.io/LecteurALpha/components/lecteuraudio/lecteuraudio.js"></script>
+    <script type="module" src="https://hassadzakaria.github.io/LecteurALpha/components/Visaliseur/Visaliseur.js"></script>
+    <script type="module" src="https://hassadzakaria.github.io/LecteurALpha/components/playlist-component/playlist.js"></script>
+    <link rel="stylesheet" href="https://hassadzakaria.github.io/LecteurALpha/components/lecteuraudio/lecteuraudio.css">
+    <link rel="stylesheet" href="https://hassadzakaria.github.io/LecteurALpha/components/Visaliseur/Visaliseur.css">
     <script src="https://unpkg.com/butterchurn"></script>
     <script src="https://unpkg.com/butterchurn-presets"></script>
     <style>
@@ -28,6 +28,7 @@
             z-index: -1;
         }
     </style>
+    
 </head>
 <body>
     <canvas id="visualizer"></canvas>
@@ -46,5 +47,39 @@
             audio-id="main-audio"
         ></butterchurn-visualizer>
     </div>
+    <div id="example-generator" style="text-align: center; margin-top: 20px;">
+        <button id="download-example" style="padding: 10px 20px; background-color: #4b2e83; color: white; border: none; border-radius: 5px; cursor: pointer;">
+            Télécharger un exemple HTML
+        </button>
+    </div>
+    
+    <script>
+        document.getElementById("download-example").addEventListener("click", async () => {
+    try {
+        // Charger le contenu du fichier modèle
+        const response = await fetch("index.html");
+        if (!response.ok) {
+            throw new Error("Impossible de charger le modèle HTML.");
+        }
+
+        const exampleHtml = await response.text();
+
+        // Créer un Blob pour le fichier
+        const blob = new Blob([exampleHtml], { type: "text/html" });
+
+        // Créer un lien de téléchargement
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "index.html";
+        link.click();
+
+        // Libérer l'URL
+        URL.revokeObjectURL(link.href);
+    } catch (error) {
+        console.error("Erreur lors du téléchargement de l'exemple :", error);
+    }
+});
+
+    </script>
 </body>
 </html>
