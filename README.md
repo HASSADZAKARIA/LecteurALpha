@@ -9,14 +9,16 @@ Bienvenue dans **LecteurALpha**, un lecteur audio et visualiseur de nouvelle gé
 - 📜 **Playlist Interactive** : Gérez facilement vos pistes audio avec une playlist interactive, incluant des fonctionnalités de glisser-déposer, de suppression et de lecture.
 - 🔊 **Contrôles Audio** : Ajustez le volume, la stéréo et la vitesse de lecture pour une expérience audio personnalisée.
 - 🌐 **Web Components** : Utilisation de Web Components pour une intégration facile et une modularité accrue.
+- 🎚️ **Égaliseur Audio** : Personnalisez votre expérience sonore en ajustant les bandes de fréquences (Basses, Médiums, Aigus) via un égaliseur interactif.
 
 ## Installation
 
 1. Clonez le dépôt :
-    ```bash
-    git clone https://github.com/votre-utilisateur/LecteurALpha.git
-    cd LecteurALpha
-    ```
+
+   ```bash
+   git clone https://github.com/votre-utilisateur/LecteurALpha.git
+   cd LecteurALpha
+   ```
 
 2. Ouvrez [index.html](http://_vscodecontentref_/0) dans votre navigateur préféré.
 
@@ -31,14 +33,22 @@ Bienvenue dans **LecteurALpha**, un lecteur audio et visualiseur de nouvelle gé
 
 ### Playlist
 
-- **Ajouter des chanson** : Cliquez sur "Ajouter une Playlist" pour charger des pistes audio.
-- **Supprimer des Music** : Utilisez le bouton de suppression pour retirer des pistes de la playlist.
+- **Ajouter des chansons** : Cliquez sur "Ajouter une Playlist" pour charger des pistes audio.
+- **Supprimer des chansons** : Utilisez le bouton de suppression pour retirer des pistes de la playlist.
 - **Glisser-Déposer** : Réorganisez les pistes par glisser-déposer.
 
 ### Visualiseur
 
 - **Sélection de Presets** : Choisissez parmi une variété de presets visuels pour personnaliser l'affichage.
 - **Visualisation en Temps Réel** : Profitez de visualisations en temps réel synchronisées avec votre musique.
+
+### Égaliseur
+
+- **Bandes de Fréquences** : Ajustez les bandes de fréquences principales :
+  - **Bass** (60 Hz) : Contrôle des basses fréquences.
+  - **Mid** (1000 Hz) : Contrôle des fréquences moyennes.
+  - **Treble** (14000 Hz) : Contrôle des hautes fréquences.
+- **Interface Interactive** : Déplacez les curseurs de l'égaliseur pour modifier la qualité sonore en temps réel.
 
 ## Technologies Utilisées
 
@@ -50,13 +60,9 @@ Bienvenue dans **LecteurALpha**, un lecteur audio et visualiseur de nouvelle gé
 
 ## Captures d'Écran
 
-![Lecteur Audio]![alt text](image.png)
-!Playlist
-![alt text](image-1.png)
-!Visualiseur
-![alt text](image-2.png)
-
-
+![Lecteur Audio](image.png)
+![Playlist](image-1.png)
+![Visualiseur](image-2.png)
 
 ---
 

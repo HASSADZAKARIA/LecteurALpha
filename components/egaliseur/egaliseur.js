@@ -9,12 +9,37 @@ class AudioEgaliseur extends HTMLElement {
         ];
         this.filters = [];
         this.audioContext = null;
-        this.inputNode = null;
+        this.sourceNode = null;
         this.outputNode = null;
     }
 
+    connect(audioNode) {
+        if (this.sourceNode) {
+            this.sourceNode.disconnect();
+            console.log('Disconnected previous source node');
+        }
+    
+        this.sourceNode = audioNode;
+    
+        // Connect the source node to the first filter
+        this.sourceNode.connect(this.filters[0]);
+        console.log('Connected source node to first filter');
+    
+        // Chain all the filters
+        for (let i = 0; i < this.filters.length - 1; i++) {
+            this.filters[i].connect(this.filters[i + 1]);
+            console.log(`Connected filter ${i} to filter ${i + 1}`);
+        }
+    
+        // Connect the last filter to the audio context's destination
+        this.filters[this.filters.length - 1].connect(this.audioContext.destination);
+        console.log('Connected last filter to AudioContext destination');
+    }
+    
+
     connectedCallback() {
         this.loadStylesAndHtml();
+        this.waitForAudioElement();
     }
 
     async loadStylesAndHtml() {
@@ -27,60 +52,49 @@ class AudioEgaliseur extends HTMLElement {
             <style>${styleContent}</style>
             ${htmlContent}
         `;
-
-        this.setupFilters();
-        this.addEventListeners();
     }
 
     setupFilters() {
-        this.audioContext = new AudioContext();
-        this.inputNode = this.audioContext.createGain();
         this.outputNode = this.audioContext.createGain();
-    
+
         this.bands.forEach((band) => {
             const filter = this.audioContext.createBiquadFilter();
             filter.type = 'peaking';
             filter.frequency.value = band.frequency;
-            filter.Q.value = 1; // Quality factor, controls the bandwidth
-            filter.gain.value = 0; // Default gain is 0 dB
+            filter.Q.value = 1;
+            filter.gain.value = 0;
             this.filters.push(filter);
         });
-    }
-    
 
-    addEventListeners() {
-        this.shadowRoot.querySelectorAll('input[type="range"]').forEach(slider => {
-            slider.addEventListener('input', (event) => {
-                const frequency = event.target.dataset.frequency;
-                const filter = this.filters.find(f => f.frequency.value == frequency);
-                if (filter) {
-                    filter.gain.value = parseFloat(event.target.value); // Ensure the value is a number
-                    console.log(`Updated ${frequency} Hz gain to ${event.target.value} dB`);
-                }
-            });
-        });
-    }    
-
-    connect(audioNode) {
-        if (!this.audioContext) {
-            this.audioContext = new AudioContext();
-        }
-    
-        // Connect the audio node to the first filter
-        audioNode.connect(this.filters[0]);
-    
-        // Chain all filters together
+        // Connect the filters in series
         for (let i = 0; i < this.filters.length - 1; i++) {
             this.filters[i].connect(this.filters[i + 1]);
         }
-    
+
         // Connect the last filter to the output node
         this.filters[this.filters.length - 1].connect(this.outputNode);
-    
-        // Connect the output node to the AudioContext destination
-        this.outputNode.connect(this.audioContext.destination);
     }
-    
+
+    waitForAudioElement() {
+        // Listen for the "audio-ready" event to get the audio element
+        window.addEventListener('audio-ready', (event) => {
+            const audioElement = event.detail.audioElement;
+            this.audioContext = new AudioContext();
+            this.setupFilters();
+
+            // Create a MediaElementAudioSourceNode
+            this.sourceNode = this.audioContext.createMediaElementSource(audioElement);
+
+            // Connect the source node to the first filter
+            this.sourceNode.connect(this.filters[0]);
+
+            // Connect the output node to the audio context destination
+            this.outputNode.connect(this.audioContext.destination);
+
+            console.log('Equalizer connected to audio element');
+            audioElement.addEventListener('play', () => this.audioContext.resume());
+        });
+    }
 }
 
 customElements.define('audio-egaliseur', AudioEgaliseur);
