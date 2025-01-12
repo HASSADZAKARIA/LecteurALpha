@@ -1,0 +1,139 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #d2b48c;
+  color: #4b2e83;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  border: 5px solid #8b4513;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #4b2e83;
+  text-shadow: 2px 2px #8b4513;
+}
+
+#tracks {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  background-color: #8b4513;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.track:hover {
+  background-color: #4b2e83;
+}
+
+.track img {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  margin-right: 15px;
+}
+
+.track-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.track-number {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #d2b48c;
+  width: 30px;
+  text-align: right;
+}
+
+.track-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+.track-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.track-artist {
+  font-size: 14px;
+  color: #d2b48c;
+  margin: 0;
+}
+
+.track-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.track-actions button {
+  background: none;
+  border: none;
+  color: #4b2e83;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.track-actions button:hover {
+  color: #fff;
+}
+
+#controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  gap: 15px;
+}
+
+#controls button {
+  background-color: #4b2e83;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#controls button:hover {
+  background-color: #8b4513;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #8b4513;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.delete-button:hover {
+  color: #4b2e83;
+  transform: scale(1.1);
+}

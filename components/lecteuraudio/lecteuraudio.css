@@ -1,0 +1,117 @@
+.audio-player-container {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+    background-color: #d2b48c;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    border: 5px solid #8b4513;
+    font-family: 'Courier New', Courier, monospace;
+    position: relative;
+    z-index: 10;
+    margin-bottom: 20px; /* Ajoutez une marge inférieure pour séparer les composants */
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #4b2e83;
+    text-shadow: 2px 2px #8b4513;
+}
+
+audio {
+    width: 100%;
+    margin-bottom: 10px;
+    border: 2px solid #8b4513;
+    border-radius: 5px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+
+button img {
+    width: 40px;
+    height: 40px;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    background: #8b4513;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4b2e83;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4b2e83;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+progress {
+    width: 100%;
+    height: 20px;
+    margin-top: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #d2b48c;
+    border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #4b2e83;
+    border-radius: 5px;
+}
+
+progress::-moz-progress-bar {
+    background-color: #4b2e83;
+    border-radius: 5px;
+}
+
+#visualizer {
+    width: 100%;
+    height: 300px;
+}
