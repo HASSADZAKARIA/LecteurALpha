@@ -1,50 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lecteur Audio & Visualiseur</title>
-    <script type="module" src="components/lecteuraudio/lecteuraudio.js"></script>
-    <script type="module" src="components/visaliseur/Visaliseur.js"></script>
-    <link rel="stylesheet" href="components/lecteuraudio/lecteuraudio.css">
-    <link rel="stylesheet" href="components/visaliseur/Visaliseur.css">
-    <script src="https://unpkg.com/butterchurn"></script>
-    <script src="https://unpkg.com/butterchurn-presets"></script>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        #visualizer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="visualizer"></canvas>
-    <div class="component-container">
-        <my-audio-player 
-            id="main-audio"
-            src="https://wasabi.i3s.unice.fr/WebAudioPluginBank/BasketCaseGreendayriffDI.mp3"
-        ></my-audio-player>
-    </div>
-    <div class="component-container">
-        <butterchurn-visualizer
-            audio-id="main-audio"
-        ></butterchurn-visualizer>
-    </div>
-</body>
-</html> -->
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,14 +6,15 @@
     <title>Lecteur Audio & Visualiseur</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="components/lecteuraudio/lecteuraudio.css">
-    <link rel="stylesheet" href="components/visaliseur/Visaliseur.css">
+    <link rel="stylesheet" href="https://hassadzakaria.github.io/LecteurALpha/components/lecteuraudio/lecteuraudio.css">
+    <link rel="stylesheet" href="https://hassadzakaria.github.io/LecteurALpha/components/Visaliseur/Visaliseur.css">
     <link rel="stylesheet" href="components/egaliseur/egaliseur.css">
 
     <!-- Scripts -->
-    <script type="module" src="components/lecteuraudio/lecteuraudio.js"></script>
-    <script type="module" src="components/visaliseur/Visaliseur.js"></script>
+    <script type="module" src="https://hassadzakaria.github.io/LecteurALpha/components/lecteuraudio/lecteuraudio.js"></script>
+    <script type="module" src="https://hassadzakaria.github.io/LecteurALpha/components/Visaliseur/Visaliseur.js"></script>
     <script type="module" src="components/egaliseur/egaliseur.js"></script>
+    <script type="module" src="https://hassadzakaria.github.io/LecteurALpha/components/playlist-component/playlist.js"></script>
 
     <script src="https://unpkg.com/butterchurn"></script>
     <script src="https://unpkg.com/butterchurn-presets"></script>
@@ -72,9 +26,9 @@
             width: 100%;
             height: 100%;
             overflow-y: auto; /* Allow vertical scrolling */
+            background-color: black;
             font-family: 'Courier New', Courier, monospace;
         }
-
 
         #visualizer {
             position: absolute;
@@ -91,6 +45,20 @@
             margin: 20px auto;
             text-align: center;
         }
+
+        #example-generator {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #download-example {
+            padding: 10px 20px;
+            background-color: #4b2e83;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +73,11 @@
         ></my-audio-player>
     </div>
 
+    <!-- Playlist Component -->
+    <div class="component-container">
+        <playlist-bar></playlist-bar>
+    </div>
+
     <!-- Audio Equalizer Component -->
     <div class="component-container">
         <audio-egaliseur id="audio-egaliseur"></audio-egaliseur>
@@ -115,6 +88,11 @@
         <butterchurn-visualizer audio-id="main-audio"></butterchurn-visualizer>
     </div>
 
+    <!-- Example Download Button -->
+    <div id="example-generator">
+        <button id="download-example">Télécharger un exemple HTML</button>
+    </div>
+
     <script>
         // Connect the audio player to the equalizer
         const audioPlayer = document.querySelector('my-audio-player');
@@ -123,7 +101,33 @@
         audioPlayer.addEventListener('audio-ready', (event) => {
             egaliseur.connect(event.detail.audioElement);
         });
+
+        // Download example HTML file
+        document.getElementById("download-example").addEventListener("click", async () => {
+            try {
+                // Load the content of the example file
+                const response = await fetch("index.html");
+                if (!response.ok) {
+                    throw new Error("Impossible de charger le modèle HTML.");
+                }
+
+                const exampleHtml = await response.text();
+
+                // Create a Blob for the file
+                const blob = new Blob([exampleHtml], { type: "text/html" });
+
+                // Create a download link
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download = "index.html";
+                link.click();
+
+                // Revoke the URL
+                URL.revokeObjectURL(link.href);
+            } catch (error) {
+                console.error("Erreur lors du téléchargement de l'exemple :", error);
+            }
+        });
     </script>
 </body>
 </html>
-
