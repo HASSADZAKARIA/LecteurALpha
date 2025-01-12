@@ -63,6 +63,7 @@ Bienvenue dans **LecteurALpha**, un lecteur audio et visualiseur de nouvelle gé
 ![Lecteur Audio](image.png)
 ![Playlist](image-1.png)
 ![Visualiseur](image-2.png)
+![Egaliseur](egaliseur.png)
 
 ---
 
