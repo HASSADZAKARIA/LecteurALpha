@@ -135,11 +135,11 @@ class PlaylistBar extends HTMLElement {
   async loadFiles() {
     // Exemple d'utilisation avec des URLs
     const fileUrls = [
-      "./components/music/track-01.mp3",
-      "./components/music/track-02.mp3",
-      "./components/music/track-03.mp3",
-      "./components/music/track-04.mp3",
-      "./components/music/track-05.mp3",
+      "https://hassadzakaria.github.io/LecteurALpha/components/music/track-01.mp3",
+      "https://hassadzakaria.github.io/LecteurALpha/components/music/track-02.mp3",
+      "https://hassadzakaria.github.io/LecteurALpha/components/music/track-03.mp3",
+      "https://hassadzakaria.github.io/LecteurALpha/components/music/track-04.mp3",
+      "https://hassadzakaria.github.io/LecteurALpha/components/music/track-05.mp3",
     ];
 
     const responses = await Promise.all(fileUrls.map((url) => fetch(url)));
